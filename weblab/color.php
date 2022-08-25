@@ -315,30 +315,24 @@
 							 </tr>
 -->
 						<?php
-							while ($row=$datos->fetch_assoc()){
-							
-								echo "<tr>";
-								echo "<th><span class=custom-checkbox>";
-								echo "<input type=checkbox id=checkbox1 name=option[] value=1>";
-								echo "<label for=checkbox1></label></th>";
-								echo "<th>" . $row["ID"] . "</th>";
-								echo "<th>" . $row["Nombre"] . "</th>";
-								echo "<th>
-								   <a href=#editEmployeeModal class=edit data-toggle=modal>
-								  <i class=material-icons data-toggle=tooltip title=Edit>&#xE254;</i>
-								  </a>
-								  <a href=Control/Eliminar_Color.php?ID=$row[ID] class=delete>
-								  <i class=material-icons data-toggle=tooltip title=Delete>&#xE872;</i>
-								  </a>
-								</th>
-								</tr>";
-							
-							}
-						?>
-
+							while ($row=$datos->fetch_assoc()){?>
+								<tr>
+								<th><span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="option[]" value="1">
+								<label for="checkbox1"></label></th>
+								<th> <?php echo $row["ID"] ?> </th>
+								<th> <?php echo $row["Nombre"] ?></th>
+								<th>
+    							   <a href=#editEmployeeModal  class="edit" data-toggle="modal" id="edit" value="<?php echo $row['Nombre']?>_<?php echo $row['ID'] ?>">
+    							   <i class="material-icons"  data-toggle="tooltip" title="Edit">&#xE254;</i>
+    							   </a>
+    							   <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+    							   <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+    							   </a>
+    							 </th>
+								</tr>
+							<?php } ?>
 						  </tbody>
-						  
-					      
 					   </table>
                          <!----PAGINACION DE TABLA--------->
 
@@ -392,7 +386,7 @@
 					   
 					   
 				   <!----Editar datos de tabla--------->
- <form action="">
+ <form action="Control/Editar_Color.php">
 <div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -405,13 +399,13 @@
 	  <div class="modal-body">
         <div class="form-group">
 		    <label>Color</label>
-			<input type="text" class="form-control" required>
+			<input type="text" class="form-control" id="formulario" name="edit" value="" required>
 		</div>
 		
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-success">Eliminar</button>
+        <button type="submit" class="btn btn-success">Eliminar</button>
       </div>
     </div>
   </div>
@@ -479,6 +473,14 @@
   
   
   <script type="text/javascript">
+  function editar(){
+            var dato =document.getElementById("edit").value;
+            alert (dato);
+              $("#formulario").val($(this).attr("value"));
+             
+  }
+   $(".edit").click(editar);
+   
        $(document).ready(function(){
 	      $(".xp-menubar").on('click',function(){
 		    $("#sidebar").toggleClass('active');
@@ -490,6 +492,7 @@
 		  });
 		  
 	   });
+	    
   </script>
   
   
@@ -537,5 +540,4 @@
   </body>
   
   </html>
-
 
